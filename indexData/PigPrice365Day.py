@@ -8,7 +8,7 @@ class PigData(BaseData):
         BaseData.__init__(self, name)
 
     def get_data(self):
-        res_data = self.get_url_date('http://zhujia.zhuwang.cc/index.php?m=zhujia&c=ajax&a=chartData&areaId=&')
+        res_data = self.get_url_data('http://zhujia.zhuwang.cc/index.php?m=zhujia&c=ajax&a=chartData&areaId=&')
         json_date = json.loads(res_data)
         price_data = json_date["pigprice"]
         price_data.reverse()
