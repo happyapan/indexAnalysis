@@ -13,7 +13,7 @@ pr(analysis.change_rate_day(pigDate.get_data(), [1, 2, 5, 10, 30, 100]), pigDate
 # 铁矿石
 pr(analysis.change_rate_day(
     bd.get_qihuo_simaple('I' + tu.qi_huo_next_month() + '.DCE', tu.pre_year_date(), tu.today(), '铁矿石'),
-    [1, 2, 5, 10, 30, 100]), '铁矿石')
+    [1, 2, 5, 10, 30, 100]), '铁矿石'+tu.qi_huo_next_month())
 
 #
 # ['A1905.DCE', 'A1905', '豆一1905', '20171115', '20190515']
