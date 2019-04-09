@@ -5,15 +5,6 @@ import urllib.request
 import time
 
 
-# 查看日K线图：
-# http://image.sinajs.cn/newchart/daily/n/sh601006.gif
-# 分时线的查询：
-# http://image.sinajs.cn/newchart/min/n/sh000001.gif
-# 周K线查询：
-# http://image.sinajs.cn/newchart/weekly/n/sh000001.gif
-# 月K线查询：
-# http://image.sinajs.cn/newchart/monthly/n/sh000001.gif
-
 def f(value):
     return "{:0,.2f}".format(round(float(value), 2))
 
@@ -53,13 +44,3 @@ while True:
 
     time.sleep(5)
 
-
-
-    # 查看日K线图：
-    # http://image.sinajs.cn/newchart/daily/n/sh601006.gif
-    # 分时线的查询：
-    # http://image.sinajs.cn/newchart/min/n/sh000001.gif
-    # 周K线查询：
-    # http://image.sinajs.cn/newchart/weekly/n/sh000001.gif
-    # 月K线查询：
-    # http://image.sinajs.cn/newchart/monthly/n/sh000001.gif
