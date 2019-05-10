@@ -17,6 +17,15 @@ def pr(value, title):
     p_line()
 
 
+def p_list(value):
+    if value is not None:
+        index = 1
+        for one in value:
+            print("%s %s " % (index, str(one)))
+            index=index+1
+    p_line()
+
+
 def p_file(file_path, values, title):
     savedStdout = sys.stdout  # 保存标准输出流
     with open(file_path, 'at') as file:
@@ -36,6 +45,17 @@ def p_file_list(file_path, values):
         if values is not None:
             for one in values:
                 print('%s,%s,%s' % (one[0], one[1], one[2]))
+                # p_line()
+    sys.stdout = savedStdout  # 恢复标准输出流
+
+
+def p_file_list_with_no_format(file_path, values):
+    savedStdout = sys.stdout  # 保存标准输出流
+    with open(file_path, 'w') as file:
+        sys.stdout = file  # 标准输出重定向至文件
+        if values is not None:
+            for one in values:
+                print('%s' % one)
                 # p_line()
     sys.stdout = savedStdout  # 恢复标准输出流
 
