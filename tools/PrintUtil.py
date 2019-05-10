@@ -1,4 +1,12 @@
 import sys
+import os
+
+
+def get_root_path():
+    # print(os.path.abspath(os.path.dirname(os.path.dirname(__file__))))
+    # print(os.path.abspath(os.path.dirname(os.getcwd())))
+    # print(os.path.abspath(os.path.join(os.getcwd(), "..")))
+    return os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 
 def pr(value, title):
@@ -9,17 +17,37 @@ def pr(value, title):
     p_line()
 
 
-def p_file(file_path, value, title):
+def p_file(file_path, values, title):
     savedStdout = sys.stdout  # 保存标准输出流
     with open(file_path, 'at') as file:
         sys.stdout = file  # 标准输出重定向至文件
         print('-' * 25 + title + '-' * 25)
-        if value is not None:
-            for one in value:
+        if values is not None:
+            for one in values:
                 print('%s: %10d天 %10.10s%%' % (one[0], one[1], one[2]))
-        # p_line()
+                # p_line()
+    sys.stdout = savedStdout  # 恢复标准输出流
+
+
+def p_file_list(file_path, values):
+    savedStdout = sys.stdout  # 保存标准输出流
+    with open(file_path, 'w') as file:
+        sys.stdout = file  # 标准输出重定向至文件
+        if values is not None:
+            for one in values:
+                print('%s,%s,%s' % (one[0], one[1], one[2]))
+                # p_line()
     sys.stdout = savedStdout  # 恢复标准输出流
 
 
 def p_line():
     print('-' * 50)
+
+
+def read_file_list(file_path):
+    values = []
+    with open(file_path, 'r') as f1:
+        files_lines = f1.readlines()
+        for i in range(0, len(files_lines)):
+            values.append(files_lines[i].rstrip('\n'))
+    return values
