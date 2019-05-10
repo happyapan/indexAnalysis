@@ -18,8 +18,11 @@ class Macd(object):
         # DIF参数：9
         self.dif = 9
 
-    def get_macd(self, stock_code, stock_name, date, day_len):
-        stock_dates = self.base.get_stock_data_hfq(stock_code, stock_name, timeUtil.day_after_day(date, -1 * day_len), date)
+
+    def get_macd(self, stock_code, stock_name):
+        day_len= -20000
+        date = timeUtil.today()
+        stock_dates = self.base.get_stock_data_hfq(stock_code, stock_name, timeUtil.day_after_day(date, day_len), date)
 
         if stock_dates is not None and len(stock_dates) > 1:
             stock_dates.reverse()
@@ -65,4 +68,4 @@ class Macd(object):
 
 
 macd = Macd()
-macd.get_macd('000004.SZ', '国农科技', '20190509', 20000)
+macd.get_macd('000004.SZ', '国农科技')
