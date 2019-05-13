@@ -19,6 +19,10 @@ class Macd(object):
         # DIF参数：9
         self.dif = 9
 
+    # 20190507 diff[1.105] - -eda[0.959] - - macd[0.292]
+    # 20190508 diff[1.087] - -eda[0.984] - - macd[0.205]
+    # 20190509 diff[1.013] - -eda[0.990] - - macd[0.046]
+    # 20190510 diff[0.958] - -eda[0.984] - - macd[-0.051]
     # return {
     #     "trade_date": self.trade_date,  交易日期
     #     "diff": self._diff, 短周期
@@ -76,7 +80,7 @@ class Macd(object):
             print("No Data Find! %s[%s] on  %s " % (stock_code, stock_name, date))
             return None
 
-#
+
 # macd = Macd()
 # result = macd.get_macd('000004.SZ', '国农科技')
 #

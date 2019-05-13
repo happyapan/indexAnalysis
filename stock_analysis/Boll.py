@@ -12,7 +12,11 @@ class Boll(object):
         self.down_track = []
         self.trade_date = []
 
-    # return {
+    # 20190507: Up[25.156], Avg[22.101], Down[19.047]
+    # 20190508: Up[25.182], Avg[22.292], Down[19.402]
+    # 20190509: Up[25.092], Avg[22.450], Down[19.809]
+    # 20190510: Up[25.147], Avg[22.519], Down[19.892]
+    # # return {
     #     "trade_date": self.trade_date, 交易日期
     #     "up_track": self.up_track, 上轨
     #     "avg_line": self.avg_line,  中轨
@@ -53,7 +57,7 @@ class Boll(object):
                 "down_track": self.down_track
             }
 
-
+#
 # ball = Boll()
 # result = ball.get_boll('000004.SZ', '国农科技')
 # print(result["trade_date"])
