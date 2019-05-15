@@ -24,7 +24,6 @@ for one in stock:
     #     p_file_list_with_no_format(stock_file_path, stock_datas_hfq)
 
     if index > 190:
-        break
         print("wait 1 minute for tushare rule.....")
         time.sleep(60)
         index = 0
