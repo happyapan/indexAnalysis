@@ -28,16 +28,30 @@ class Avg(object):
         stock_dates = self.base.get_stock_data(stock_code, stock_name, timeUtil.day_after_day(date, day_len), date)
         if stock_dates is not None and len(stock_dates) > 1:
             stock_dates.reverse()
+            day3_line = []
+            day4_line = []
             day5_line = []
+            day6_line = []
+            day7_line = []
+            day8_line = []
+            day9_line = []
             day10_line = []
+            day15_line = []
             day20_line = []
             day30_line = []
             day60_line = []
             day120_line = []
             trade_date = []
 
+            day3 = 0
+            day4 = 0
             day5 = 0
+            day6 = 0
+            day7 = 0
+            day8 = 0
+            day9 = 0
             day10 = 0
+            day15 = 0
             day20 = 0
             day30 = 0
             day60 = 0
@@ -45,6 +59,21 @@ class Avg(object):
 
             for index in range(len(stock_dates)):
                 trade_date.append(stock_dates[index].get_trade_date())
+                # Day 3
+                day3 += stock_dates[index].get_close()
+                if index < 3:
+                    day3_line.append(day3 / (index + 1))
+                else:
+                    day3 -= stock_dates[index - 3].get_close()
+                    day3_line.append(day3 / 3)
+
+                # Day 4
+                day4 += stock_dates[index].get_close()
+                if index < 4:
+                    day4_line.append(day4 / (index + 1))
+                else:
+                    day4 -= stock_dates[index - 4].get_close()
+                    day4_line.append(day4 / 4)
 
                 # Day 5
                 day5 += stock_dates[index].get_close()
@@ -54,6 +83,38 @@ class Avg(object):
                     day5 -= stock_dates[index - 5].get_close()
                     day5_line.append(day5 / 5)
 
+                # Day 6
+                day6 += stock_dates[index].get_close()
+                if index < 6:
+                    day6_line.append(day6 / (index + 1))
+                else:
+                    day6 -= stock_dates[index - 6].get_close()
+                    day6_line.append(day6 / 6)
+
+                # Day 7
+                day7 += stock_dates[index].get_close()
+                if index < 7:
+                    day7_line.append(day7 / (index + 1))
+                else:
+                    day7 -= stock_dates[index - 7].get_close()
+                    day7_line.append(day7 / 7)
+
+                # Day 8
+                day8 += stock_dates[index].get_close()
+                if index < 8:
+                    day8_line.append(day8 / (index + 1))
+                else:
+                    day8 -= stock_dates[index - 8].get_close()
+                    day8_line.append(day8 / 8)
+
+                # Day 9
+                day9 += stock_dates[index].get_close()
+                if index < 9:
+                    day9_line.append(day9 / (index + 1))
+                else:
+                    day9 -= stock_dates[index - 9].get_close()
+                    day9_line.append(day9 / 9)
+
                 # Day 10
                 day10 += stock_dates[index].get_close()
                 if index < 10:
@@ -61,6 +122,14 @@ class Avg(object):
                 else:
                     day10 -= stock_dates[index - 10].get_close()
                     day10_line.append(day10 / 10)
+
+                # Day 15
+                day15 += stock_dates[index].get_close()
+                if index < 15:
+                    day15_line.append(day15 / (index + 1))
+                else:
+                    day15 -= stock_dates[index - 15].get_close()
+                    day15_line.append(day15 / 15)
 
                 # Day 20
                 day20 += stock_dates[index].get_close()
@@ -98,8 +167,15 @@ class Avg(object):
 
             return {
                 "trade_date": trade_date,
+                "day3": day3_line,
+                "day4": day4_line,
                 "day5": day5_line,
+                "day6": day6_line,
+                "day7": day7_line,
+                "day8": day8_line,
+                "day9": day9_line,
                 "day10": day10_line,
+                "day15": day15_line,
                 "day20": day20_line,
                 "day30": day30_line,
                 "day60": day60_line,
@@ -109,10 +185,28 @@ class Avg(object):
         else:
             return None
 
-
+    def get_one_day_avg(self,  avgs, date_value):
+        if avgs is None or len(avgs) ==0 or date_value is None or len(date_value)==0:
+            return None
+        else:
+            for pp in range(len(avgs["trade_date"])):
+                if avgs["trade_date"][pp] == date_value:
+                    return {
+                        "trade_date": avgs["trade_date"][pp],
+                        "3": avgs["day3"][pp],
+                        "4": avgs["day4"][pp],
+                        "5": avgs["day5"][pp],
+                        "6": avgs["day6"][pp],
+                        "7": avgs["day7"][pp],
+                        "8": avgs["day8"][pp],
+                        "9": avgs["day9"][pp],
+                        "10": avgs["day10"][pp],
+                        "15": avgs["day15"][pp],
+                        "20": avgs["day20"][pp],
+                        "30": avgs["day30"][pp],
+                        "60": avgs["day60"][pp],
+                        "120": avgs["day120"][pp]
+                    }
 # avg = Avg()
 # result = avg.get_avg('000004.SZ', '国农科技')
-# for pp in range(len(result["trade_date"])):
-#     print("%s: 5[%.3f],10[%.3f],20[%.3f],30[%.3f],60[%.3f],120[%.3f]" % (
-#         result["trade_date"][pp], result["day5"][pp], result["day10"][pp], result["day20"][pp], result["day30"][pp],
-#         result["day60"][pp], result["day120"][pp]))
+# print(avg.get_one_day_avg(result,"20190510"))

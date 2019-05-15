@@ -38,6 +38,14 @@ def p_file(file_path, values, title):
     sys.stdout = savedStdout  # 恢复标准输出流
 
 
+def p_file_no_format(file_path, value):
+    savedStdout = sys.stdout  # 保存标准输出流
+    with open(file_path, 'w') as file:
+        sys.stdout = file  # 标准输出重定向至文件
+        if value is not None:
+            print('%s' % value)
+    sys.stdout = savedStdout  # 恢复标准输出流
+
 def p_file_list(file_path, values):
     savedStdout = sys.stdout  # 保存标准输出流
     with open(file_path, 'w') as file:

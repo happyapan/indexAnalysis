@@ -44,6 +44,7 @@ class BaseStock(BaseData):
     #             stock_datas_hfq.append(StockDayDataHFQ(one))
     #     return stock_datas_hfq
 
+    #日期 大 到 小 也就是 近到远
     def get_stock_data(self, stock_code, stock_name, start_date, end_date):
         # print("Get %s[%s]   from %s to %s" % (stock_code, stock_name, start_date, end_date))
         stocks = printUtil.read_file_list(constants.stock_file_path + stock_code + ".txt")
