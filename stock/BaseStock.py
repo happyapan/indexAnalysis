@@ -33,19 +33,19 @@ class BaseStock(BaseData):
                 stock_datas.append(StockDayData(one))
         return stock_datas
 
-    #后赋权
-    def query_stock_data_hfq(self, stock_code, stock_name, start_date, end_date):
-        stock_datas_hfq = []
-        resultList = self.pro.pro_bar(ts_code=stock_code, adj='hfq', start_date=start_date, end_date=end_date)\
-            .values.tolist()
-        # ts_code trade_date  open  high   low  close  pre_close  change    pct_chg  vol  amount
-        if resultList is not None and len(resultList) > 0:
-            for one in resultList:
-                stock_datas_hfq.append(StockDayDataHFQ(one))
-        return stock_datas_hfq
+    #后赋权 --接口有问题
+    # def query_stock_data_hfq(self, stock_code, stock_name, start_date, end_date):
+    #     stock_datas_hfq = []
+    #     resultList = self.pro.pro_bar(ts_code=stock_code, adj='hfq', start_date=start_date, end_date=end_date)\
+    #         .values.tolist()
+    #     # ts_code trade_date  open  high   low  close  pre_close  change    pct_chg  vol  amount
+    #     if resultList is not None and len(resultList) > 0:
+    #         for one in resultList:
+    #             stock_datas_hfq.append(StockDayDataHFQ(one))
+    #     return stock_datas_hfq
 
     def get_stock_data(self, stock_code, stock_name, start_date, end_date):
-        print("Get %s[%s]   from %s to %s" % (stock_code, stock_name, start_date, end_date))
+        # print("Get %s[%s]   from %s to %s" % (stock_code, stock_name, start_date, end_date))
         stocks = printUtil.read_file_list(constants.stock_file_path + stock_code + ".txt")
         if stocks is not None and len(stocks) > 0:
             stock_datas = []
@@ -57,18 +57,26 @@ class BaseStock(BaseData):
             return stock_datas
         return None
 
-    def get_stock_data_hfq(self, stock_code, stock_name, start_date, end_date):
-        print("Get %s[%s]   from %s to %s" % (stock_code, stock_name, start_date, end_date))
-        stocks = printUtil.read_file_list(constants.stock_file_path_hfq + stock_code + ".txt")
-        if stocks is not None and len(stocks) > 0:
-            stock_datas = []
-            for one in stocks:
-                oneRowData = one.split(",")
-                trade_date = oneRowData[1]
-                if operator.ge(trade_date, start_date) and operator.le(trade_date, end_date):
-                    stock_datas.append(StockDayDataHFQ(oneRowData))
-            return stock_datas
-        return None
+    # def get_stock_data_hfq(self, stock_code, stock_name, start_date, end_date):
+    #     # print("Get %s[%s]   from %s to %s" % (stock_code, stock_name, start_date, end_date))
+    #     stocks = printUtil.read_file_list(constants.stock_file_path_hfq + stock_code + ".txt")
+    #     if stocks is not None and len(stocks) > 0:
+    #         stock_datas = []
+    #         for one in stocks:
+    #             oneRowData = one.split(",")
+    #             trade_date = oneRowData[1]
+    #             if operator.ge(trade_date, start_date) and operator.le(trade_date, end_date):
+    #                 stock_datas.append(StockDayDataHFQ(oneRowData))
+    #         return stock_datas
+    #     return None
+
+    # def get_stock_realtime(self, stock_code):
+    #     resultList = self.pro.ts.get_realtime_quotes('000581').values.tolist()
+    #     # ts_code trade_date  open  high   low  close  pre_close  change    pct_chg  vol  amount
+    #     if resultList is not None and len(resultList) > 0:
+    #         for one in resultList:
+    #              print(one)
+
 
 
 ##TEST
@@ -86,3 +94,5 @@ class BaseStock(BaseData):
 #     count = count + 1
 #     if count > 20:
 #         break
+# base = BaseStock("base")
+# base.get_stock_realtime("000004.SZ")

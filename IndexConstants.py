@@ -7,3 +7,5 @@ stock_file_path = get_root_path() + os.sep + "dataFiles" + os.sep + "stock" + os
 
 #后赋权
 stock_file_path_hfq = get_root_path() + os.sep + "dataFiles" + os.sep + "stock_hfq" + os.sep
+
+real_time_stock_load = get_root_path() + os.sep + "analysisStock.txt"

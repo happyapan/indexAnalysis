@@ -38,5 +38,3 @@ def pre_year_date():
     today_date = datetime.datetime.today()
     return datetime.datetime(today_date.year - 1, today_date.month, today_date.day).strftime('%Y%m%d')
 
-
-print(day_after_day('20190109',-1))

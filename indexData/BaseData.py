@@ -7,7 +7,7 @@ class BaseData:
     def __init__(self, name):
         self.pro = ts.pro_api('3fe0a7c39610e6d7a4b56ca611270c8d7411c36ccb3a53c227c68b31')
         self.name = name
-        self.next_month = '1905'
+        self.next_month = '1906'
         self.return_data = {
             "name": "",
             "week": 0,

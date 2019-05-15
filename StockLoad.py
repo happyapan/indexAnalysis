@@ -3,6 +3,7 @@
 import sys
 import urllib.request
 import time
+import IndexConstants as constants
 
 
 def f(value):
@@ -10,7 +11,7 @@ def f(value):
 
 
 stocks = []
-fileInfo = open("d:\\analysisStock.txt")
+fileInfo = open(constants.real_time_stock_load)
 
 for line in fileInfo:
     stocks.append(line)
@@ -43,4 +44,3 @@ while True:
             print(sys.exc_info())
 
     time.sleep(5)
-

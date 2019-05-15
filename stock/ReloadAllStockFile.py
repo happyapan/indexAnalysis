@@ -18,19 +18,14 @@ for one in stock:
         stock_file_path = constant.stock_file_path + one + '.txt'
         p_file_list_with_no_format(stock_file_path, stock_datas)
 
-    stock_datas_hfq = base.query_stock_data(one, stock[one], timeUtil.day_after(-20000), timeUtil.today())
-    if stock_datas_hfq is not None:
-        stock_file_path = constant.stock_file_path_hfq + one + '.txt'
-        p_file_list_with_no_format(stock_file_path, stock_datas_hfq)
+    # stock_datas_hfq = base.query_stock_data_hfq(one, stock[one], timeUtil.day_after(-20000), timeUtil.today())
+    # if stock_datas_hfq is not None:
+    #     stock_file_path = constant.stock_file_path_hfq + one + '.txt'
+    #     p_file_list_with_no_format(stock_file_path, stock_datas_hfq)
 
     if index > 190:
         break
-        # print("wait 1 minute for tushare rule.....")
-        # time.sleep(60)
-        # index = 0
+        print("wait 1 minute for tushare rule.....")
+        time.sleep(60)
+        index = 0
 
-
-        #
-        # stock_datas = base.query_stock_data('000004.SZ', '国农科技', timeUtil.day_after(-360), timeUtil.today())
-        # stock_file_path = constant.stock_file_path  + '000004.SZ.txt'
-        # p_file_list_with_no_format(stock_file_path, stock_datas)

@@ -22,10 +22,11 @@ class Boll(object):
     #     "avg_line": self.avg_line,  中轨
     #     "down_track": self.down_track 下轨
     # }
+    #不复权比较
     def get_boll(self, stock_code, stock_name):
         day_len = -20000
         date = timeUtil.today()
-        stock_dates = self.base.get_stock_data_hfq(stock_code, stock_name, timeUtil.day_after_day(date, day_len), date)
+        stock_dates = self.base.get_stock_data(stock_code, stock_name, timeUtil.day_after_day(date, day_len), date)
         if stock_dates is not None and len(stock_dates) > 1:
             stock_dates.reverse()
             # N天之内所有的开盘总和
@@ -57,9 +58,10 @@ class Boll(object):
                 "down_track": self.down_track
             }
 
-#
+
+# #
 # ball = Boll()
-# result = ball.get_boll('000004.SZ', '国农科技')
+# result = ball.get_boll('300059.SZ', 'dfcf')
 # print(result["trade_date"])
 # for pp in range(len(result["trade_date"])):
 #     print("%s: Up[%.3f],Avg[%.3f],Down[%.3f]" % (

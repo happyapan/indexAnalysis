@@ -32,7 +32,7 @@ class Macd(object):
     def get_macd(self, stock_code, stock_name):
         day_len= -20000
         date = timeUtil.today()
-        stock_dates = self.base.get_stock_data_hfq(stock_code, stock_name, timeUtil.day_after_day(date, day_len), date)
+        stock_dates = self.base.get_stock_data(stock_code, stock_name, timeUtil.day_after_day(date, day_len), date)
         if stock_dates is not None and len(stock_dates) > 1:
             stock_dates.reverse()
 
