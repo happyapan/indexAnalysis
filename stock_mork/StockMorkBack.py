@@ -2,6 +2,7 @@ import stock_strategy.BollBackDownLine as boll
 import tools.TimeUtil as timeUtil
 from stock.BaseStock import BaseStock
 from stock_analysis.Avg import Avg
+from stock_analysis.Boll import Boll
 
 
 def mork_bollBackDownLine(stock_code, stock_name):
@@ -12,9 +13,12 @@ def mork_bollBackDownLine(stock_code, stock_name):
     base = BaseStock("base")
     avg = Avg()
     avg_result = avg.get_avg(stock_code, stock_name)
+    ball_class = Boll()
+    boll_result = ball_class.get_boll(stock_code, stock_name)
 
-    for i in range(0, 300):
-        catch_stock = boll.analysis_stock(stock_code, stock_name, timeUtil.day_after_day(timeUtil.today(), i * -1))
+    for i in range(0, 150):
+        catch_stock = boll.analysis_stock(stock_code, stock_name, timeUtil.day_after_day(timeUtil.today(), i * -1), boll_result)
+
         if catch_stock is not None:
             after_datas = base.get_stock_data(stock_code, stock_name,
                                               timeUtil.day_after_day(catch_stock.get_trade_date(), 1),

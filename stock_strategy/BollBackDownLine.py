@@ -6,7 +6,7 @@ from stock.BaseStock import BaseStock
 from stock_analysis.Boll import Boll
 
 
-def analysis_stock(stock_code, stock_name, trade_data):
+def analysis_stock(stock_code, stock_name, trade_data, boll_result):
     base = BaseStock("base")
     datas = base.get_stock_data(stock_code, stock_name, timeUtil.day_after_day(trade_data, -30), trade_data)
     if datas is not None and len(datas) > 1:
@@ -17,9 +17,10 @@ def analysis_stock(stock_code, stock_name, trade_data):
         trade_time_data = datas[0]
         # 比较时间，前一天交易记录
         trade_time_pre = datas[1]
+        if boll_result is None:
+            ball = Boll()
+            boll_result = ball.get_boll(stock_code, stock_name)
 
-        ball = Boll()
-        boll_result = ball.get_boll(stock_code, stock_name)
         boll_compare_index = -1
         for pp in range(len(boll_result["trade_date"])):
             if boll_result["trade_date"][pp] == trade_data:

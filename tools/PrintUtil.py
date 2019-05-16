@@ -74,8 +74,11 @@ def p_line():
 
 def read_file_list(file_path):
     values = []
-    with open(file_path, 'r') as f1:
-        files_lines = f1.readlines()
-        for i in range(0, len(files_lines)):
-            values.append(files_lines[i].rstrip('\n'))
+    try:
+        with open(file_path, 'r') as f1:
+            files_lines = f1.readlines()
+            for i in range(0, len(files_lines)):
+                values.append(files_lines[i].rstrip('\n'))
+    except:
+        print("NO File Found %s" % file_path)
     return values

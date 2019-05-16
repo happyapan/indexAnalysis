@@ -2,6 +2,8 @@ import stock_strategy.BollBackDownLine as boll
 import tools.TimeUtil as timeUtil
 from stock.BaseStock import BaseStock
 from stock_analysis.Avg import Avg
+from stock_analysis.Boll import Boll
+
 
 def mork_bollBackDownLine_20_5_5(stock_code, stock_name, statistics_data):
     day1_up = 0
@@ -11,9 +13,11 @@ def mork_bollBackDownLine_20_5_5(stock_code, stock_name, statistics_data):
     base = BaseStock("base")
     avg = Avg()
     avg_result = avg.get_avg(stock_code, stock_name)
+    ball_class = Boll()
+    boll_result = ball_class.get_boll(stock_code, stock_name)
+    for i in range(0, 150):
 
-    for i in range(0, 300):
-        catch_stock = boll.analysis_stock(stock_code, stock_name, timeUtil.day_after_day(timeUtil.today(), i * -1))
+        catch_stock = boll.analysis_stock(stock_code, stock_name, timeUtil.day_after_day(timeUtil.today(), i * -1), boll_result)
         if catch_stock is not None:
             after_datas = base.get_stock_data(stock_code, stock_name,
                                               timeUtil.day_after_day(catch_stock.get_trade_date(), 1),
@@ -80,13 +84,15 @@ def mork_bollBackDownLine_20_5_5(stock_code, stock_name, statistics_data):
 
 
 def cal_print_avg_line(catch_stock, avg, avg_result, after_datas, day_count, test_trade):
-    print("Mork --> Day %d[%.2f],[%.2f%%] VS Catch [%.2f],[%.2f%%] " % ((day_count+1),
+    print("%sMork --> Day %d[%.2f],[%.2f%%] VS Catch [%.2f],[%.2f%%] " % (after_datas[day_count].get_trade_date(),
+                                                                                (day_count+1),
                                                                                 after_datas[day_count].get_close(),
                                                                                 after_datas[day_count].get_pct_chg(),
                                                                                 (after_datas[day_count].get_close() - catch_stock.get_close()),
                                                                                 100 * (after_datas[day_count].get_close() - catch_stock.get_close()) / catch_stock.get_close()))
     one_day_avg = avg.get_one_day_avg(avg_result, after_datas[day_count].get_trade_date())
-    print("Line3[%.3f] - Line5[%.3f] - Line6[%.3f] - Line8[%.3f] - close[%.3f]" % (one_day_avg["3"],
+    print("%sLine3[%.3f] - Line5[%.3f] - Line6[%.3f] - Line8[%.3f] - close[%.3f]" % (after_datas[day_count].get_trade_date(),
+                                                                                     one_day_avg["3"],
                                                                                    one_day_avg["5"],
                                                                                    one_day_avg["6"],
                                                                                    one_day_avg["8"],

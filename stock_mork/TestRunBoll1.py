@@ -1,9 +1,10 @@
 from stock.BaseStock import BaseStock
 import IndexConstants
 import sys
-import stock_mork.StockMork_20_3_9 as stockMork_20_3_9
+import stock_mork.StockMork_20_5_9 as stockMork_20_5_9
 
 base = BaseStock("base")
+
 stock = base.get_all_60_stock()
 statistics_data = {
     "winTime": 0,
@@ -17,11 +18,10 @@ statistics_data = {
 }
 for one in stock:
     savedStdout = sys.stdout  # 保存标准输出流
-    with open(IndexConstants.date_file_path + "20_3_9_60.txt", 'at') as file:
+    with open(IndexConstants.date_file_path + "20_5_9_60.txt", 'at') as file:
         sys.stdout = file  # 标准输出重定向至文件
-        stockMork_20_3_9.mork_bollBackDownLine_20_3_9(one, stock[one], statistics_data)
+        stockMork_20_5_9.mork_bollBackDownLine_20_5_9(one, stock[one], statistics_data)
     sys.stdout = savedStdout  # 恢复标准输出流
-
 
 stock = base.get_all_30_stock()
 statistics_data = {
@@ -36,9 +36,9 @@ statistics_data = {
 }
 for one in stock:
     savedStdout = sys.stdout  # 保存标准输出流
-    with open(IndexConstants.date_file_path + "20_3_9_30.txt", 'at') as file:
+    with open(IndexConstants.date_file_path + "20_5_9_30.txt", 'at') as file:
         sys.stdout = file  # 标准输出重定向至文件
-        stockMork_20_3_9.mork_bollBackDownLine_20_3_9(one, stock[one], statistics_data)
+        stockMork_20_5_9.mork_bollBackDownLine_20_5_9(one, stock[one], statistics_data)
     sys.stdout = savedStdout  # 恢复标准输出流
 
 stock = base.get_all_00_stock()
@@ -54,7 +54,7 @@ statistics_data = {
 }
 for one in stock:
     savedStdout = sys.stdout  # 保存标准输出流
-    with open(IndexConstants.date_file_path + "20_3_9_00.txt", 'at') as file:
+    with open(IndexConstants.date_file_path + "20_5_9_00.txt", 'at') as file:
         sys.stdout = file  # 标准输出重定向至文件
-        stockMork_20_3_9.mork_bollBackDownLine_20_3_9(one, stock[one], statistics_data)
+        stockMork_20_5_9.mork_bollBackDownLine_20_5_9(one, stock[one], statistics_data)
     sys.stdout = savedStdout  # 恢复标准输出流

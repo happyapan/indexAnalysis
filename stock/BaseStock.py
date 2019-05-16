@@ -11,6 +11,10 @@ from stock.StockDayDataHFQ import StockDayDataHFQ
 class BaseStock(BaseData):
     def __init__(self, name):
         self.total_stock = {}
+        self.total_st_stock = {}
+        self.total_60_stock = {}
+        self.total_30_stock = {}
+        self.total_00_stock = {}
         BaseData.__init__(self, name)
 
     def get_all_stock(self):
@@ -22,6 +26,46 @@ class BaseStock(BaseData):
                 detail = str(one_stock).split(",")
                 self.total_stock[detail[0]] = detail[1]
         return self.total_stock
+
+    def get_all_st_stock(self):
+        if len(self.total_st_stock) > 0:
+            return self.total_st_stock
+        else:
+            all_data = printUtil.read_file_list(constants.all_ST_stock_path)
+            for one_stock in all_data:
+                detail = str(one_stock).split(",")
+                self.total_st_stock[detail[0]] = detail[1]
+        return self.total_st_stock
+
+    def get_all_60_stock(self):
+        if len(self.total_60_stock) > 0:
+            return self.total_60_stock
+        else:
+            all_data = printUtil.read_file_list(constants.all_60_stock_path)
+            for one_stock in all_data:
+                detail = str(one_stock).split(",")
+                self.total_60_stock[detail[0]] = detail[1]
+        return self.total_60_stock
+
+    def get_all_30_stock(self):
+        if len(self.total_30_stock) > 0:
+            return self.total_30_stock
+        else:
+            all_data = printUtil.read_file_list(constants.all_30_stock_path)
+            for one_stock in all_data:
+                detail = str(one_stock).split(",")
+                self.total_30_stock[detail[0]] = detail[1]
+        return self.total_30_stock
+
+    def get_all_00_stock(self):
+        if len(self.total_00_stock) > 0:
+            return self.total_00_stock
+        else:
+            all_data = printUtil.read_file_list(constants.all_00_stock_path)
+            for one_stock in all_data:
+                detail = str(one_stock).split(",")
+                self.total_00_stock[detail[0]] = detail[1]
+        return self.total_00_stock
 
     def query_stock_data(self, stock_code, stock_name, start_date, end_date):
         stock_datas = []
