@@ -80,7 +80,19 @@ class Macd(object):
             print("No Data Find! %s[%s] on  %s " % (stock_code, stock_name, date))
             return None
 
-
+    def get_one_day_macd(self, macds, date_value):
+        if macds is None or len(macds) == 0 or date_value is None or len(date_value) == 0:
+            return None
+        else:
+            for pp in range(len(macds["trade_date"])):
+                if macds["trade_date"][pp] == date_value:
+                    return {
+                        "trade_date": macds["trade_date"][pp],
+                        "diff": macds["diff"][pp],
+                        "eda": macds["eda"][pp],
+                        "macd": macds["macd"][pp]
+                    }
+            return None
 # macd = Macd()
 # result = macd.get_macd('000004.SZ', '国农科技')
 #
