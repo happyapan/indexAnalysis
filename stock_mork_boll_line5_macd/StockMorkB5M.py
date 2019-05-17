@@ -60,8 +60,8 @@ class MorkB5N(object):
                             "holdDay": 0,
                             "forceSell": False,
                             "forceSellType": "",
-                            "startBuyMacd": None,
-                            "endBuyMacd": None
+                            "startBuyMacd": 99999,
+                            "endBuyMacd": 99999
                         }
 
                         print("Line5[%.3f] - close[%.3f]" % (avg.get_one_day_avg(avg_result, catch_stock.get_trade_date())["5"], catch_stock.get_close()))
