@@ -155,19 +155,19 @@ class Avg(object):
 
             for ii in range(0,len(trade_date)):
                 avg_result[trade_date[ii]] = {
-                    "day3": day3_line[ii],
-                    "day4": day4_line[ii],
-                    "day5": day5_line[ii],
-                    "day6": day6_line[ii],
-                    "day7": day7_line[ii],
-                    "day8": day8_line[ii],
-                    "day9": day9_line[ii],
-                    "day10": day10_line[ii],
-                    "day15": day15_line[ii],
-                    "day20": day20_line[ii],
-                    "day30": day30_line[ii],
-                    "day60": day60_line[ii],
-                    "day120": day120_line[ii]
+                    "3": day3_line[ii],
+                    "4": day4_line[ii],
+                    "5": day5_line[ii],
+                    "6": day6_line[ii],
+                    "7": day7_line[ii],
+                    "8": day8_line[ii],
+                    "9": day9_line[ii],
+                    "10": day10_line[ii],
+                    "15": day15_line[ii],
+                    "20": day20_line[ii],
+                    "30": day30_line[ii],
+                    "60": day60_line[ii],
+                    "120": day120_line[ii]
                 }
 
             return avg_result

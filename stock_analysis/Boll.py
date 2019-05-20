@@ -63,8 +63,8 @@ class Boll(object):
             return None
 
 
-#
-ball = Boll()
-result = ball.get_boll('300059.SZ', 'dfcf')
-print(result)
-#
+# #
+# ball = Boll()
+# result = ball.get_boll('300059.SZ', 'dfcf')
+# print(result)
+# #
