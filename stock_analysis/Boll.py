@@ -12,22 +12,25 @@ class Boll(object):
         self.down_track = []
         self.trade_date = []
 
-    # 20190507: Up[25.156], Avg[22.101], Down[19.047]
-    # 20190508: Up[25.182], Avg[22.292], Down[19.402]
-    # 20190509: Up[25.092], Avg[22.450], Down[19.809]
-    # 20190510: Up[25.147], Avg[22.519], Down[19.892]
-    # # return {
-    #     "trade_date": self.trade_date, 交易日期
-    #     "up_track": self.up_track, 上轨
-    #     "avg_line": self.avg_line,  中轨
-    #     "down_track": self.down_track 下轨
+    # {
+    #     '20190513': {
+    #         'up_track': 20.895620489161818,
+    #         'avg_line': 17.52700000000012,
+    #         'down_track': 14.158379510838419
+    #     },
+    #     '20190514': {
+    #         'up_track': 20.742542659338184,
+    #         'avg_line': 17.343500000000116,
+    #         'down_track': 13.94445734066205
+    #     }
     # }
-    #不复权比较
     def get_boll(self, stock_code, stock_name):
+
         day_len = -20000
         date = timeUtil.today()
         stock_dates = self.base.get_stock_data(stock_code, stock_name, timeUtil.day_after_day(date, day_len), date)
         if stock_dates is not None and len(stock_dates) > 1:
+            boll_result = {}
             stock_dates.reverse()
             # N天之内所有的开盘总和
             day_count_sum = 0
@@ -35,9 +38,11 @@ class Boll(object):
                 self.trade_date.append(stock_dates[index].get_trade_date())
                 day_count_sum += stock_dates[index].get_close()
                 if index < self.analysis_day:
-                    self.up_track.append(0)
-                    self.avg_line.append(0)
-                    self.down_track.append(0)
+                    boll_result[stock_dates[index].get_trade_date()]={
+                        "up_track": 0,
+                        "avg_line": 0,
+                        "down_track": 0,
+                    }
                 else:
                     day_count_sum = day_count_sum - stock_dates[index - self.analysis_day].get_close()
                     middle_value = day_count_sum / self.analysis_day
@@ -47,22 +52,19 @@ class Boll(object):
 
                     md = md / self.analysis_day
                     md = math.sqrt(md)
-                    self.up_track.append(middle_value + 2 * md)
-                    self.avg_line.append(middle_value)
-                    self.down_track.append(middle_value - 2 * md)
+                    boll_result[stock_dates[index].get_trade_date()] = {
+                        "up_track": middle_value + 2 * md,
+                        "avg_line": middle_value,
+                        "down_track": middle_value - 2 * md,
+                    }
 
-            return {
-                "trade_date": self.trade_date,
-                "up_track": self.up_track,
-                "avg_line": self.avg_line,
-                "down_track": self.down_track
-            }
+            return boll_result
+        else:
+            return None
 
 
-# #
-# ball = Boll()
-# result = ball.get_boll('300059.SZ', 'dfcf')
-# print(result["trade_date"])
-# for pp in range(len(result["trade_date"])):
-#     print("%s: Up[%.3f],Avg[%.3f],Down[%.3f]" % (
-#         result["trade_date"][pp], result["up_track"][pp], result["avg_line"][pp], result["down_track"][pp]))
+#
+ball = Boll()
+result = ball.get_boll('300059.SZ', 'dfcf')
+print(result)
+#

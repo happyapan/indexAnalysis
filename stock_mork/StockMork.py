@@ -52,11 +52,11 @@ class MorkBollBackDownLine(object):
                             "forceSellType": ""
                         }
 
-                        print("Line5[%.3f] - close[%.3f]" % (avg.get_one_day_avg(avg_result, catch_stock.get_trade_date())["5"], catch_stock.get_close()))
-                        self.cal_print_avg_line(catch_stock, avg, avg_result, after_datas, 0, test_trade)
+                        print("Line5[%.3f] - close[%.3f]" % (avg_result[catch_stock.get_trade_date()]["5"], catch_stock.get_close()))
+                        self.cal_print_avg_line(catch_stock, avg_result, after_datas, 0, test_trade)
                         for cal_day in range(2, self._calDay+1):
                             if len(after_datas) >= cal_day:
-                                self.cal_print_avg_line(catch_stock, avg, avg_result, after_datas, cal_day-1, test_trade)
+                                self.cal_print_avg_line(catch_stock, avg_result, after_datas, cal_day-1, test_trade)
 
                         if test_trade["startBuy"] > 0:
                             print("stockCode	%s	startBuy	%.2f	 startBuyDate	%s		endBuy	%.2f	endBuyDate	%s	earn	%.2f	earnRate	%.2f	holdDay	%d	forceSell	%s	forceSellType	%s"
@@ -103,7 +103,7 @@ class MorkBollBackDownLine(object):
         return statistics_data
 
 
-    def cal_print_avg_line(self, catch_stock, avg, avg_result, after_datas, day_count, test_trade):
+    def cal_print_avg_line(self, catch_stock, avg_result, after_datas, day_count, test_trade):
 
         print("%sMork 	Day%d	%.2f	%.2f%%	VS_Catch	%.2f	%.2f%%"
               % (
@@ -116,7 +116,7 @@ class MorkBollBackDownLine(object):
                 )
               )
 
-        one_day_avg = avg.get_one_day_avg(avg_result, after_datas[day_count].get_trade_date())
+        one_day_avg = avg_result[after_datas[day_count].get_trade_date()]
         print("%sLine	Day5	%.3f	day3	%.3f	Day6	%.3f	day8	%.3f	close	%.3f"
               % (
                    after_datas[day_count].get_trade_date(),

@@ -19,15 +19,17 @@ class Macd(object):
         # DIF参数：9
         self.dif = 9
 
-    # 20190507 diff[1.105] - -eda[0.959] - - macd[0.292]
-    # 20190508 diff[1.087] - -eda[0.984] - - macd[0.205]
-    # 20190509 diff[1.013] - -eda[0.990] - - macd[0.046]
-    # 20190510 diff[0.958] - -eda[0.984] - - macd[-0.051]
-    # return {
-    #     "trade_date": self.trade_date,  交易日期
-    #     "diff": self._diff, 短周期
-    #     "eda": self._eda,  长周期
-    #     "macd": self._delta  macd差值
+    # {
+    #     '20190513': {
+    #         'diff': 0.7732937859731557,
+    #         'eda': 0.9415498112527317,
+    #         'macd': -0.3365120505591521
+    #     },
+    #     '20190514': {
+    #         'diff': 0.6013899635176436,
+    #         'eda': 0.8735178417057141,
+    #         'macd': -0.544255756376141
+    #     }
     # }
     def get_macd(self, stock_code, stock_name):
         day_len= -20000
@@ -35,7 +37,7 @@ class Macd(object):
         stock_dates = self.base.get_stock_data(stock_code, stock_name, timeUtil.day_after_day(date, day_len), date)
         if stock_dates is not None and len(stock_dates) > 1:
             stock_dates.reverse()
-
+            macd_result = {}
             # 计算EMA
             EMA1 = []
             EMA2 = []
@@ -69,33 +71,18 @@ class Macd(object):
             for index in range(len(self._diff)):
                 self._delta.append((self._diff[index]-self._eda[index])*2)
 
-            return {
-                "trade_date": self.trade_date,
-                "diff": self._diff,
-                "eda": self._eda,
-                "macd": self._delta
-            }
+            for ii in range(0,len(self.trade_date)):
+                macd_result[self.trade_date[ii]] = {
+                    "diff": self._diff[ii],
+                    "eda": self._eda[ii],
+                    "macd": self._delta[ii]
+                }
+            return macd_result
 
         else:
             print("No Data Find! %s[%s] on  %s " % (stock_code, stock_name, date))
             return None
 
-    def get_one_day_macd(self, macds, date_value):
-        if macds is None or len(macds) == 0 or date_value is None or len(date_value) == 0:
-            return None
-        else:
-            for pp in range(len(macds["trade_date"])):
-                if macds["trade_date"][pp] == date_value:
-                    return {
-                        "trade_date": macds["trade_date"][pp],
-                        "diff": macds["diff"][pp],
-                        "eda": macds["eda"][pp],
-                        "macd": macds["macd"][pp]
-                    }
-            return None
 # macd = Macd()
 # result = macd.get_macd('000004.SZ', '国农科技')
-#
-# for index in range(len(result["trade_date"])):
-#     print("%s diff[%.3f]--eda[%.3f] -- macd[%.3f]" % (
-#         result["trade_date"][index], result["diff"][index], result["eda"][index], result["macd"][index]))
+# print(result)

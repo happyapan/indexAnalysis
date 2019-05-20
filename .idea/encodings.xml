@@ -2,5 +2,22 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/README.md" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dataFiles/01AllStock.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/01AllStock.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/01AllStock.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/01All_00.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/01All_30.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/01All_30.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/01All_60.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/01All_60.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/01All_60.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/01All_ST.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/01All_ST.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/20-5-9.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/Boll下轨破5日线.总结" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/qihuo20190412.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/qihuo20190419.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/qihuo20190425.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/dataFiles/stock/000004.SZ.txt" charset="GBK" />
   </component>
 </project>

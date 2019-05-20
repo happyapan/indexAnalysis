@@ -8,25 +8,13 @@ class Avg(object):
         self.analysis_day = 20
         self.base = BaseStock("base")
 
-    #
-    # 20190507: 5[23.542],10[22.469],20[22.101],30[21.157],60[18.965],120[17.749]
-    # 20190508: 5[23.798],10[22.603],20[22.292],30[21.293],60[19.082],120[17.811]
-    # 20190509: 5[23.776],10[22.778],20[22.450],30[21.456],60[19.187],120[17.869]
-    # 20190510: 5[23.330],10[23.012],20[22.519],30[21.599],60[19.294],120[17.929]
-    # return {
-    #     "trade_date": trade_date,  交易日期
-    #     "day5": day5_line,
-    #     "day10": day10_line,
-    #     "day20": day20_line,
-    #     "day30": day30_line,
-    #     "day60": day60_line,
-    #     "day120": day120_line,
-    # }
+
     def get_avg(self, stock_code, stock_name):
         day_len = -20000
         date = timeUtil.today()
         stock_dates = self.base.get_stock_data(stock_code, stock_name, timeUtil.day_after_day(date, day_len), date)
         if stock_dates is not None and len(stock_dates) > 1:
+            avg_result= {}
             stock_dates.reverse()
             day3_line = []
             day4_line = []
@@ -165,48 +153,27 @@ class Avg(object):
 
             # END LOOP-------------------------------
 
-            return {
-                "trade_date": trade_date,
-                "day3": day3_line,
-                "day4": day4_line,
-                "day5": day5_line,
-                "day6": day6_line,
-                "day7": day7_line,
-                "day8": day8_line,
-                "day9": day9_line,
-                "day10": day10_line,
-                "day15": day15_line,
-                "day20": day20_line,
-                "day30": day30_line,
-                "day60": day60_line,
-                "day120": day120_line,
-            }
+            for ii in range(0,len(trade_date)):
+                avg_result[trade_date[ii]] = {
+                    "day3": day3_line[ii],
+                    "day4": day4_line[ii],
+                    "day5": day5_line[ii],
+                    "day6": day6_line[ii],
+                    "day7": day7_line[ii],
+                    "day8": day8_line[ii],
+                    "day9": day9_line[ii],
+                    "day10": day10_line[ii],
+                    "day15": day15_line[ii],
+                    "day20": day20_line[ii],
+                    "day30": day30_line[ii],
+                    "day60": day60_line[ii],
+                    "day120": day120_line[ii]
+                }
 
+            return avg_result
         else:
             return None
-
-    def get_one_day_avg(self,  avgs, date_value):
-        if avgs is None or len(avgs) ==0 or date_value is None or len(date_value)==0:
-            return None
-        else:
-            for pp in range(len(avgs["trade_date"])):
-                if avgs["trade_date"][pp] == date_value:
-                    return {
-                        "trade_date": avgs["trade_date"][pp],
-                        "3": avgs["day3"][pp],
-                        "4": avgs["day4"][pp],
-                        "5": avgs["day5"][pp],
-                        "6": avgs["day6"][pp],
-                        "7": avgs["day7"][pp],
-                        "8": avgs["day8"][pp],
-                        "9": avgs["day9"][pp],
-                        "10": avgs["day10"][pp],
-                        "15": avgs["day15"][pp],
-                        "20": avgs["day20"][pp],
-                        "30": avgs["day30"][pp],
-                        "60": avgs["day60"][pp],
-                        "120": avgs["day120"][pp]
-                    }
+#
 # avg = Avg()
 # result = avg.get_avg('000004.SZ', '国农科技')
-# print(avg.get_one_day_avg(result,"20190510"))
+# print(result)
