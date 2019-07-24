@@ -5,7 +5,7 @@ import tushare as ts
 
 class BaseData:
     def __init__(self, name):
-        self.pro = ts.pro_api('3fe0a7c39610e6d7a4b56ca611270c8d7411c36ccb3a53c227c68b31')
+        self.pro = ts.pro_api('959a2400d6ba62bf624ac72977e96e42f66cb5763eb565067c1def41')
         self.name = name
         self.next_month = '1906'
         self.return_data = {

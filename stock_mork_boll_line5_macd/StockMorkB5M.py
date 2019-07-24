@@ -27,9 +27,9 @@ class MorkB5N(object):
 
         ball_class = Boll()
         boll_result = ball_class.get_boll(stock_code, stock_name)
-        for i in range(0, 150):
+        for i in range(0, timeUtil.dat_interval("20181031", "20181122")):
 
-            catch_stock = boll.analysis_stock(stock_code, stock_name, timeUtil.day_after_day(timeUtil.today(), i * -1), boll_result)
+            catch_stock = boll.analysis_stock(stock_code, stock_name, timeUtil.day_after_day("20181122", i * -1), boll_result)
 
             if catch_stock is not None:
                 after_datas = base.get_stock_data(stock_code, stock_name,

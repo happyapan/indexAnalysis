@@ -38,3 +38,8 @@ def pre_year_date():
     today_date = datetime.datetime.today()
     return datetime.datetime(today_date.year - 1, today_date.month, today_date.day).strftime('%Y%m%d')
 
+def dat_interval(day_start, day_end):
+    day_time_st = datetime.datetime.strptime(day_start, '%Y%m%d')
+    day_time_ed = datetime.datetime.strptime(day_end, '%Y%m%d')
+    interval= day_time_ed - day_time_st
+    return interval.days

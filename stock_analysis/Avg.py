@@ -173,7 +173,9 @@ class Avg(object):
             return avg_result
         else:
             return None
-#
-# avg = Avg()
-# result = avg.get_avg('000004.SZ', '国农科技')
-# print(result)
+
+
+if __name__ =='main':
+    avg = Avg()
+    result = avg.get_avg('000004.SZ', '国农科技')
+    print(result)
