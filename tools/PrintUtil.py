@@ -46,6 +46,15 @@ def p_file_no_format(file_path, value):
             print('%s' % value)
     sys.stdout = savedStdout  # 恢复标准输出流
 
+def p_file_no_format_add(file_path, values):
+    savedStdout = sys.stdout  # 保存标准输出流
+    with open(file_path, 'at') as file:
+        sys.stdout = file  # 标准输出重定向至文件
+        if values is not None:
+            for one in values:
+                print('%s' % one)
+    sys.stdout = savedStdout  # 恢复标准输出流
+
 def p_file_list(file_path, values):
     savedStdout = sys.stdout  # 保存标准输出流
     with open(file_path, 'w') as file:
@@ -57,9 +66,20 @@ def p_file_list(file_path, values):
     sys.stdout = savedStdout  # 恢复标准输出流
 
 
-def p_file_list_with_no_format(file_path, values):
+def p_file_list_with_no_format_add(file_path, values):
     savedStdout = sys.stdout  # 保存标准输出流
     with open(file_path, 'at') as file:
+        sys.stdout = file  # 标准输出重定向至文件
+        if values is not None:
+            for one in values:
+                print('%s' % one)
+                # p_line()
+    sys.stdout = savedStdout  # 恢复标准输出流
+
+
+def p_file_list_with_no_format(file_path, values):
+    savedStdout = sys.stdout  # 保存标准输出流
+    with open(file_path, 'w') as file:
         sys.stdout = file  # 标准输出重定向至文件
         if values is not None:
             for one in values:

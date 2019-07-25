@@ -67,6 +67,7 @@ class BaseStock(BaseData):
                 self.total_00_stock[detail[0]] = detail[1]
         return self.total_00_stock
 
+    # return [StockDayData]
     def query_stock_data(self, stock_code, stock_name, start_date, end_date):
         stock_datas = []
         resultList = self.pro.query('daily', ts_code=stock_code, start_date=start_date,
