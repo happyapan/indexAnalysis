@@ -42,6 +42,6 @@ class All_Stock(BaseData):
 
         print("success!")
 
-
-all_stock = All_Stock("allStock")
-all_stock.fresh_stock_code()
+if __name__ =="__main__" :
+    all_stock = All_Stock("allStock")
+    all_stock.fresh_stock_code()

@@ -9,6 +9,9 @@ from stock.StockDayData import StockDayData
 
 
 # 判断该股票在某天的股价，是否站上10日线，并且5日线向上突破10日线，形成金叉
+from stock_analysis.Boll import Boll
+
+
 def analysis_stock(stock_code, stock_name, trade_data):
     base = BaseStock("base")
     avg = Avg()
@@ -26,6 +29,9 @@ def analysis_stock(stock_code, stock_name, trade_data):
     current_stock_data = base.get_pre_stock_data(stock_code, trade_data, 0)
     pre_stock_data = base.get_pre_stock_data(stock_code, trade_data, -1)
 
+    if pre_stock_data is None:
+        return None
+
     pre_trade_data_avg = avg_result[pre_stock_data.get_trade_date()]
 
     if pre_stock_data is not None \
@@ -42,54 +48,54 @@ def analysis_stock(stock_code, stock_name, trade_data):
 if __name__ == '__main__':
     base = BaseStock("base")
     stock = base.get_all_stock()
-    trade_data = "20190723"
-    print("Start---" + trade_data)
-    for one in stock:
-        shoot_stock = analysis_stock(one, stock[one], trade_data)
-        if shoot_stock is not None:
-            print("______________"+shoot_stock.get_trade_date())
-            after_n_day_trade = base.query_stock_data(shoot_stock.get_ts_code(),
-                                                      stock[one],
-                                                      shoot_stock.get_trade_date(),
-                                                      timeUtil.day_after_day(trade_data, 2)
-                                                      )
-            pt.p_file_list_with_no_format_add(constant.date_file_path + "Line5Up10_20190723.txt", after_n_day_trade)
-            end_trade = after_n_day_trade[0]
-            start_trade = after_n_day_trade[-1]
-            trade_diff = end_trade.get_close() - start_trade.get_close()
-            first_day_msg = "No1 %.2f  rate: %.2f" % (trade_diff, 100 * trade_diff / start_trade.get_close())
+    avg = Avg()
+    ball = Boll()
 
-            second_trade = after_n_day_trade[-2]
-            second_trade_diff = end_trade.get_close() - second_trade.get_close()
+    for i in range(3):
+        trade_data = timeUtil.day_after_day("20190726", -1*i)
+        print("Start---" + trade_data)
+        result_file_path = constant.date_file_path + "Line5Up10_" + trade_data + ".txt"
+        pt.p_file_no_format_add(result_file_path,
+                                ["code,date,O,H,L,C,P,Diff,R,count,sum,avg5,avg10,avg20,up_track,avg_line,down_track".replace(",", "	")])
+        for one in stock:
+            shoot_stock = analysis_stock(one, stock[one], trade_data)
+            if shoot_stock is not None:
+                print(" %s(%s):%s" % (stock[one],one, shoot_stock.get_trade_date()))
 
-            sed_day_msg = "No2 %.2f  rate: %.2f" % (
-            second_trade_diff, 100 * second_trade_diff / second_trade.get_close())
+                after_n_day_trade = base.get_stock_data(shoot_stock.get_ts_code(),
+                                                          stock[one],
+                                                          shoot_stock.get_trade_date(),
+                                                          timeUtil.day_after_day(trade_data, 10)
+                                                          )
+                message = []
+                shoot_avg_result = avg.get_avg(one, stock[one])
+                shoot_ball_result = ball.get_boll(one, stock[one])
+                for one_stock_data in after_n_day_trade:
+                    one_messgae = str(one_stock_data)
 
-            pt.p_file_no_format_add(constant.date_file_path + "Line5Up10_20190723.txt",
-                                    [first_day_msg, sed_day_msg])
+                    try:
+                        shoot_avg_result[one_stock_data.get_trade_date()]
+                        one_messgae= one_messgae + ",%s,%s,%s" % (
+                            shoot_avg_result[one_stock_data.get_trade_date()]['5'],
+                            shoot_avg_result[one_stock_data.get_trade_date()]['10'],
+                            shoot_avg_result[one_stock_data.get_trade_date()]['20']
+                        )
+                    except:
+                        one_messgae = one_messgae + ",_,_,_"
 
-# for i in range(15):
-    #     trade_data = timeUtil.day_after_day("20190723", -1 * i)
-    #     print("Start---" + trade_data)
-    #     for one in stock:
-    #         shoot_stock = analysis_stock(one, stock[one], trade_data)
-    #         if shoot_stock is not None:
-    #             after_n_day_trade = base.query_stock_data(shoot_stock.get_ts_code(),
-    #                                                       stock[one],
-    #                                                       shoot_stock.get_trade_date(),
-    #                                                       timeUtil.day_after_day(trade_data, 10)
-    #                                                       )
-    #             pt.p_file_list_with_no_format(constant.date_file_path + "Line5Up10_20190723.txt", after_n_day_trade)
-    #             end_trade = after_n_day_trade[0]
-    #             start_trade = after_n_day_trade[-1]
-    #             trade_diff = end_trade.get_close() - start_trade.get_close()
-    #             first_day_msg = "No1 %.2f  rate: %.2f" % (trade_diff, 100 * trade_diff / start_trade.get_close())
-    #
-    #             second_trade = after_n_day_trade[-2]
-    #             second_trade_diff = end_trade.get_close() - second_trade.get_close()
-    #
-    #             sed_day_msg = "No2 %.2f  rate: %.2f" % (
-    #             second_trade_diff, 100 * second_trade_diff / second_trade.get_close())
-    #
-    #             pt.p_file_no_format_add(constant.date_file_path + "Line5Up10_20190723.txt",
-    #                                     [first_day_msg, sed_day_msg])
+                    try:
+                        one_messgae = one_messgae + ",%s,%s,%s" % (
+                            shoot_ball_result[one_stock_data.get_trade_date()]['up_track'],
+                            shoot_ball_result[one_stock_data.get_trade_date()]['avg_line'],
+                            shoot_ball_result[one_stock_data.get_trade_date()]['down_track']
+                        )
+                    except:
+                        one_messgae = one_messgae + ",_,_,_"
+
+                    message.append(one_messgae.replace(",", "	"))
+
+                pt.p_file_list_with_no_format_add(result_file_path, message)
+
+                pt.p_file_no_format_add(result_file_path,
+                                        [" %s(%s):%s" % (stock[one], one, shoot_stock.get_trade_date())])
+

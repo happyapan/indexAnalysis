@@ -67,7 +67,7 @@ class BaseStock(BaseData):
                 self.total_00_stock[detail[0]] = detail[1]
         return self.total_00_stock
 
-    # return [StockDayData]
+    # return [StockDayData] 请求外部数据
     def query_stock_data(self, stock_code, stock_name, start_date, end_date):
         stock_datas = []
         resultList = self.pro.query('daily', ts_code=stock_code, start_date=start_date,
@@ -110,10 +110,11 @@ class BaseStock(BaseData):
 
         stock_datas = self.get_stock_data(stock_code, "", timeUtil.day_after_day(trade_date, -30),
                                           trade_date)
-        if stock_datas is not None and len(stock_datas) > 0:
-            key_index = -1 * pre_count
-            if stock_datas[key_index] is not None:
-                return stock_datas[key_index]
+
+        key_index = -1 * pre_count
+        if stock_datas is not None and len(stock_datas) > key_index:
+            return stock_datas[key_index]
+
         return None
 
 
@@ -144,10 +145,13 @@ class BaseStock(BaseData):
 # 3 000004.SZ,20190718,20.24,20.30,19.67,20.23,20.35,-0.12,-0.59,2410.39,4855.03
 if __name__ == '__main__':
     base = BaseStock("base")
-    # datas = base.get_stock_data('000004.SZ', '国农科技', '20190302', timeUtil.day_after(-1))
-    # printUtil.p_list(datas)
-    print(base.get_pre_stock_data('000004.SZ', '20190719', 0))
-    print(base.get_pre_stock_data('000004.SZ', '20190719', -1))
+    # # datas = base.get_stock_data('000004.SZ', '国农科技', '20190302', timeUtil.day_after(-1))
+    # # printUtil.p_list(datas)
+    # print(base.get_pre_stock_data('000004.SZ', '20190719', 0))
+    # print(base.get_pre_stock_data('000004.SZ', '20190719', -1))
+
+    print
+
 
 
 ##TEST

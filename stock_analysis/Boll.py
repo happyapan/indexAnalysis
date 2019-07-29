@@ -63,8 +63,7 @@ class Boll(object):
             return None
 
 
-# #
-# ball = Boll()
-# result = ball.get_boll('300059.SZ', 'dfcf')
-# print(result)
-# #
+if __name__ == "__main__" :
+    ball = Boll()
+    result = ball.get_boll('300059.SZ', 'dfcf')
+    print(result)
