@@ -145,12 +145,10 @@ class BaseStock(BaseData):
 # 3 000004.SZ,20190718,20.24,20.30,19.67,20.23,20.35,-0.12,-0.59,2410.39,4855.03
 if __name__ == '__main__':
     base = BaseStock("base")
-    # # datas = base.get_stock_data('000004.SZ', '国农科技', '20190302', timeUtil.day_after(-1))
+    datas = base.get_stock_data('601318.SH', '国农科技', '20190302', timeUtil.day_after(0))
     # # printUtil.p_list(datas)
-    # print(base.get_pre_stock_data('000004.SZ', '20190719', 0))
-    # print(base.get_pre_stock_data('000004.SZ', '20190719', -1))
+    print(datas[0].get_trade_date())
 
-    print
 
 
 
