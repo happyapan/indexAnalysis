@@ -9,8 +9,12 @@ from stock.BaseStock import BaseStock
 import tools.TimeUtil as timeUtil
 
 def f(value):
-    return "{:0,.2f}".format(round(float(value), 2))
-
+    format_value ="{:0,.2f}".format(round(float(value), 2))
+    if len(format_value) == 4:
+        format_value = " " + format_value
+    if len(format_value) == 5:
+        format_value = " " + format_value
+    return format_value
 
 
 stocks = []
@@ -61,9 +65,10 @@ while True:
                 avg_result = avg.get_avg(stock_code, "")
                 avg_clos[stock_code] = avg_result
 
+            if len(stockName) == 3:
+                stockName = stockName + " "
 
-
-            print("%s\t%s\t%s\t%s[%s\t%s\t%s]\t\t%s%%\t%s\t%s\t%s\t" % (
+            print("%s %s %s %s[%s %s %s] %s%% %s %s %s" % (
                 stockName, f(info[1]), f(info[2]), f(info[3]), f(avg_result[lastest_trade_date]["5"]), f(avg_result[lastest_trade_date]["10"]), f(avg_result[lastest_trade_date]["20"])
                 ,f(100 * (float(info[3]) - float(info[2])) / float(info[2])), f(float(info[3]) - float(info[2])),
                 f(info[4]), f(info[5])))
