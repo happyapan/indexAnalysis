@@ -59,7 +59,9 @@ while True:
             stockName = stockNameInfo[stockNameStartPos + 1:]
 
             avg_result = None
-            if stock_code in avg_clos.keys():
+            if oneStockInfo in ['sz399001', 'sz399006', 'sh000001']:
+                pass
+            elif stock_code in avg_clos.keys():
                 avg_result = avg_clos[stock_code]
             else:
                 avg_result = avg.get_avg(stock_code, "")
@@ -68,10 +70,16 @@ while True:
             if len(stockName) == 3:
                 stockName = stockName + " "
 
-            print("%s %s %s %s[%s %s %s] %s%% %s %s %s" % (
-                stockName, f(info[1]), f(info[2]), f(info[3]), f(avg_result[lastest_trade_date]["5"]), f(avg_result[lastest_trade_date]["10"]), f(avg_result[lastest_trade_date]["20"])
-                ,f(100 * (float(info[3]) - float(info[2])) / float(info[2])), f(float(info[3]) - float(info[2])),
-                f(info[4]), f(info[5])))
+            if  oneStockInfo in ['sz399001', 'sz399006', 'sh000001']:
+                print("%s %s %s %s[                 ] %s%% %s %s %s" % (
+                    stockName, f(info[1]), f(info[2]), f(info[3])
+                    , f(100 * (float(info[3]) - float(info[2])) / float(info[2])), f(float(info[3]) - float(info[2])),
+                    f(info[4]), f(info[5])))
+            else:
+                print("%s %s %s %s[%s %s %s] %s%% %s %s %s" % (
+                    stockName, f(info[1]), f(info[2]), f(info[3]), f(avg_result[lastest_trade_date]["5"]), f(avg_result[lastest_trade_date]["10"]), f(avg_result[lastest_trade_date]["20"])
+                    ,f(100 * (float(info[3]) - float(info[2])) / float(info[2])), f(float(info[3]) - float(info[2])),
+                    f(info[4]), f(info[5])))
         except:
             print(sys.exc_info())
 
