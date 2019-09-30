@@ -10,9 +10,17 @@ stock = base.get_all_stock()
 count = 1
 index = 1
 for one in stock:
-    print(str(count) + "--" + one)
     count = count + 1
+
+    if count < 3509:
+        continue
+    else:
+        index = index + 1
+
     index = index + 1
+
+    print(str(count) + "--" + one)
+
     stock_datas = base.query_stock_data(one, stock[one], timeUtil.day_after(-20000), timeUtil.today())
     if stock_datas is not None:
         stock_file_path = constant.stock_file_path + one + '.txt'

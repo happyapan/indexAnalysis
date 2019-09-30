@@ -51,11 +51,13 @@ if __name__ == '__main__':
     avg = Avg()
     ball = Boll()
 
-    for i in range(1):
-        trade_data = timeUtil.day_after_day("20190731", -1*i)
+    print("Save data in:" + constant.date_file_path)
+    for i in range(5):
+        analysis_date = "20190821"
+        trade_data = timeUtil.day_after_day(analysis_date, -1*i)
         print("Start---" + trade_data)
-        # result_file_path = constant.date_file_path + "Line5Up10_" + trade_data + ".txt"
-        result_file_path = constant.date_file_path + "Line5Up1020190731.txt"
+        result_file_path = constant.date_file_path + "Line5Up10_" + trade_data + ".txt"
+        # result_file_path = constant.date_file_path + "Line5Up10.txt"
         pt.p_file_no_format_add(result_file_path,
                                 ["code,date,O,H,L,C,P,Diff,R,count,sum,avg5,avg10,avg20,up_track,avg_line,down_track".replace(",", "	")])
         for one in stock:
